@@ -13,7 +13,7 @@ from fastai.metrics import accuracy
 import csv
 
 # Generate synthetic dataset
-X, y = make_moons(n_samples=300, noise=0.3, random_state=42)
+X, y = make_moons(n_samples=1000, noise=0.3, random_state=42)
 y_categorical = tf.keras.utils.to_categorical(y)
 
 # TensorFlow/Keras model setup
@@ -82,12 +82,12 @@ plt.title('Model Accuracy Comparison')
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.legend()
-plt.savefig('example.IMG.png')
+plt.savefig('IMG.png')
 plt.close()
 
 # Save the logs
 
-with open('example.log.txt', 'w', newline='') as log_file:
+with open('log.txt', 'w', newline='') as log_file:
     log_writer = csv.writer(log_file)
 
     # Write headers for the CSV file
