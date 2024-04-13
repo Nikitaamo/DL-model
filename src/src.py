@@ -10,6 +10,7 @@ import torch.nn as nn
 import torch.optim as optim
 from fastai.tabular.all import *
 from fastai.metrics import accuracy
+import csv
 
 # Generate synthetic dataset
 X, y = make_moons(n_samples=300, noise=0.3, random_state=42)
@@ -85,14 +86,21 @@ plt.savefig('IMG.png')
 plt.close()
 
 # Save the logs
-with open('log.txt', 'w') as log_file:
-    log_file.write("Keras History:\n")
-    log_file.write(f"Accuracy: {history_keras.history['accuracy']}\n")
-    log_file.write(f"Loss: {history_keras.history['loss']}\n\n")
 
-    log_file.write("PyTorch History:\n")
-    log_file.write(f"Accuracy: {torch_history['accuracy']}\n")
-    log_file.write(f"Loss: {torch_history['loss']}\n\n")
+with open('log.txt', 'w', newline='') as log_file:
+    log_writer = csv.writer(log_file)
+
+    # Write headers for the CSV file
+    log_writer.writerow(['Model', 'Epoch', 'Accuracy', 'Loss'])
+
+    # Write Keras model history
+    # Properly access the .history attribute of the History object
+    for i in range(len(history_keras.history['accuracy'])):
+        log_writer.writerow(['Keras', i, history_keras.history['accuracy'][i], history_keras.history['loss'][i]])
+
+    # Write PyTorch model history
+    for i in range(len(torch_history['accuracy'])):
+        log_writer.writerow(['PyTorch', i, torch_history['accuracy'][i], torch_history['loss'][i]])
 
     # log_file.write("FastAI History:\n")
     # log_file.write(f"Accuracy: {[x['accuracy'].item() for x in learn.recorder.values]}\n")
