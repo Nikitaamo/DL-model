@@ -82,12 +82,12 @@ plt.title('Model Accuracy Comparison')
 plt.xlabel('Epochs')
 plt.ylabel('Accuracy')
 plt.legend()
-plt.savefig('IMG.png')
+plt.savefig('example.IMG.png')
 plt.close()
 
 # Save the logs
 
-with open('log.txt', 'w', newline='') as log_file:
+with open('example.log.txt', 'w', newline='') as log_file:
     log_writer = csv.writer(log_file)
 
     # Write headers for the CSV file
